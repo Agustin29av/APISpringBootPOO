@@ -6,16 +6,14 @@ public class ContinenteResponseDTO {
 
     private String id;
     private String nombre;
-    private Set<String> paisesIds; // También podríamos devolver los objetos completos de los países
+    private Set<String> paises;
 
-    // Constructor para mapeo
-    public ContinenteResponseDTO(String id, String nombre, Set<String> paisesIds) {
+    public ContinenteResponseDTO(String id, String nombre, Set<String> paises) {
         this.id = id;
         this.nombre = nombre;
-        this.paisesIds = paisesIds;
+        this.paises = paises;
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -32,11 +30,11 @@ public class ContinenteResponseDTO {
         this.nombre = nombre;
     }
 
-    public Set<String> getPaisesIds() {
-        return paisesIds;
+    public Set<String> getPaises() {
+        return paises;
     }
 
-    public void setPaisesIds(Set<String> paisesIds) {
-        this.paisesIds = paisesIds;
+    public void setPaises(Set<String> paises) {
+        this.paises = paises;
     }
 }

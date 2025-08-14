@@ -9,21 +9,19 @@ public class PaisResponseDTO {
     private String capital;
     private double superficie;
     private String continenteId;
-    private Set<String> provinciasIds;
-    private Set<String> limitrofesIds;
+    private Set<String> provincias;
+    private Set<String> limitrofes;
 
-    // Constructor para mapeo
-    public PaisResponseDTO(String id, String nombre, String capital, double superficie, String continenteId, Set<String> provinciasIds, Set<String> limitrofesIds) {
+    public PaisResponseDTO(String id, String nombre, String capital, double superficie, String continenteId, Set<String> provincias, Set<String> limitrofes) {
         this.id = id;
         this.nombre = nombre;
         this.capital = capital;
         this.superficie = superficie;
         this.continenteId = continenteId;
-        this.provinciasIds = provinciasIds;
-        this.limitrofesIds = limitrofesIds;
+        this.provincias = provincias;
+        this.limitrofes = limitrofes;
     }
 
-    // Getters y Setters
     public String getId() {
         return id;
     }
@@ -64,19 +62,19 @@ public class PaisResponseDTO {
         this.continenteId = continenteId;
     }
 
-    public Set<String> getProvinciasIds() {
-        return provinciasIds;
+    public Set<String> getProvincias() {
+        return provincias;
     }
 
-    public void setProvinciasIds(Set<String> provinciasIds) {
-        this.provinciasIds = provinciasIds;
+    public void setProvincias(Set<String> provincias) {
+        this.provincias = provincias;
     }
 
-    public Set<String> getLimitrofesIds() {
-        return limitrofesIds;
+    public Set<String> getLimitrofes() {
+        return limitrofes;
     }
 
-    public void setLimitrofesIds(Set<String> limitrofesIds) {
-        this.limitrofesIds = limitrofesIds;
+    public void setLimitrofes(Set<String> limitrofes) {
+        this.limitrofes = limitrofes;
     }
 }

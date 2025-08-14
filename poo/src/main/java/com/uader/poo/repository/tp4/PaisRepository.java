@@ -7,10 +7,16 @@ import java.util.List;
 
 @Repository
 public interface PaisRepository extends MongoRepository<Pais, String> {
+    // Revisa si existe un país con el nombre especificado (ignorando mayúsculas y minúsculas)
     boolean existsByNombreIgnoreCase(String nombre);
+    
+    // Busca un país por su nombre (ignorando mayúsculas y minúsculas)
     Pais findByNombreIgnoreCase(String nombre);
-    // NUEVO: Buscar países por el ID de su continente
+    
+    // Busca una lista de países por el ID de su continente
     List<Pais> findByContinenteId(String continenteId);
-    List<Pais> findByIdiomaIgnoreCase(String idioma);
-    List<Pais> findBySuperficieGreaterThan(double superficie);
+    
+    // NOTA: Se eliminaron los métodos findByIdiomaIgnoreCase y findBySuperficieGreaterThan
+    // ya que el campo 'idioma' no existe en la entidad Pais y la lógica de búsqueda por
+    // superficie es mejor gestionarla en el servicio para mayor control.
 }

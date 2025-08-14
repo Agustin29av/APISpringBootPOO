@@ -1,13 +1,17 @@
 package com.uader.poo.controller.tp4;
 
+import com.uader.poo.dto.tp4.ProvinciaCreateDTO;
+import com.uader.poo.dto.tp4.ProvinciaResponseDTO;
 import com.uader.poo.entity.tp4.Provincia;
 import com.uader.poo.service.tp4.IProvinciaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/provincias")
@@ -20,37 +24,70 @@ public class ProvinciaController {
         this.provinciaService = provinciaService;
     }
 
+    // Crear provincia (ahora recibe un DTO y usa @Valid)
     @PostMapping
-    public ResponseEntity<Provincia> crearProvincia(@RequestBody Provincia provincia) {
-        Provincia nuevaProvincia = provinciaService.crearProvincia(provincia);
-        return new ResponseEntity<>(nuevaProvincia, HttpStatus.CREATED);
+    public ResponseEntity<ProvinciaResponseDTO> crearProvincia(@Valid @RequestBody ProvinciaCreateDTO provinciaCreateDTO) throws Exception {
+        // Mapear de DTO a entidad
+        Provincia nuevaProvincia = new Provincia(provinciaCreateDTO.getNombre(), provinciaCreateDTO.getPaisId());
+        nuevaProvincia = provinciaService.crearProvincia(nuevaProvincia);
+
+        // Mapear de entidad a DTO de respuesta
+        ProvinciaResponseDTO responseDTO = new ProvinciaResponseDTO(
+                nuevaProvincia.getId(),
+                nuevaProvincia.getNombre(),
+                nuevaProvincia.getPaisId()
+        );
+        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
+    // Obtener por ID (ahora devuelve un DTO)
     @GetMapping("/{id}")
-    public ResponseEntity<Provincia> obtenerProvinciaPorId(@PathVariable String id) {
-        return ResponseEntity.ok(provinciaService.obtenerProvinciaPorId(id));
+    public ResponseEntity<ProvinciaResponseDTO> obtenerProvinciaPorId(@PathVariable String id) throws Exception {
+        Provincia provincia = provinciaService.obtenerProvinciaPorId(id);
+        ProvinciaResponseDTO responseDTO = new ProvinciaResponseDTO(
+                provincia.getId(),
+                provincia.getNombre(),
+                provincia.getPaisId()
+        );
+        return ResponseEntity.ok(responseDTO);
     }
 
+    // Obtener por nombre (ahora devuelve un DTO)
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<Provincia> obtenerProvinciaPorNombre(@PathVariable String nombre) {
-        return ResponseEntity.ok(provinciaService.obtenerProvinciaPorNombre(nombre));
+    public ResponseEntity<ProvinciaResponseDTO> obtenerProvinciaPorNombre(@PathVariable String nombre) throws Exception {
+        Provincia provincia = provinciaService.obtenerProvinciaPorNombre(nombre);
+        ProvinciaResponseDTO responseDTO = new ProvinciaResponseDTO(
+                provincia.getId(),
+                provincia.getNombre(),
+                provincia.getPaisId()
+        );
+        return ResponseEntity.ok(responseDTO);
     }
     
+    // Obtener todas las provincias (ahora devuelve una lista de DTOs)
     @GetMapping
-    public ResponseEntity<List<Provincia>> obtenerTodasLasProvincias() {
-        return ResponseEntity.ok(provinciaService.obtenerTodasLasProvincias());
+    public ResponseEntity<List<ProvinciaResponseDTO>> obtenerTodasLasProvincias() {
+        List<Provincia> provincias = provinciaService.obtenerTodasLasProvincias();
+        List<ProvinciaResponseDTO> responseDTOs = provincias.stream()
+                .map(p -> new ProvinciaResponseDTO(p.getId(), p.getNombre(), p.getPaisId()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 
+    // Eliminar provincia
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarProvincia(@PathVariable String id) {
+    public ResponseEntity<Void> eliminarProvincia(@PathVariable String id) throws Exception {
         provinciaService.eliminarProvincia(id);
         return ResponseEntity.noContent().build();
     }
 
-    // NUEVO: Obtener provincias por ID de país
+    // Obtener provincias por ID de país (ahora devuelve una lista de DTOs)
     @GetMapping("/pais/{paisId}")
-    public ResponseEntity<List<Provincia>> obtenerProvinciasPorPaisId(@PathVariable String paisId) {
+    public ResponseEntity<List<ProvinciaResponseDTO>> obtenerProvinciasPorPaisId(@PathVariable String paisId) {
         List<Provincia> provincias = provinciaService.obtenerProvinciasPorPaisId(paisId);
-        return ResponseEntity.ok(provincias);
+        List<ProvinciaResponseDTO> responseDTOs = provincias.stream()
+                .map(p -> new ProvinciaResponseDTO(p.getId(), p.getNombre(), p.getPaisId()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 }

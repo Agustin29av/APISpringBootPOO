@@ -32,7 +32,7 @@ public class ContinenteController {
         ContinenteResponseDTO responseDTO = new ContinenteResponseDTO(
                 nuevoContinente.getId(),
                 nuevoContinente.getNombre(),
-                nuevoContinente.getPaisesIds()
+                nuevoContinente.getPaises()
         );
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
@@ -42,7 +42,7 @@ public class ContinenteController {
     public ResponseEntity<List<ContinenteResponseDTO>> obtenerTodos() {
         List<Continente> continentes = continenteService.obtenerTodosLosContinentes();
         List<ContinenteResponseDTO> responseDTOs = continentes.stream()
-                .map(c -> new ContinenteResponseDTO(c.getId(), c.getNombre(), c.getPaisesIds()))
+                .map(c -> new ContinenteResponseDTO(c.getId(), c.getNombre(), c.getPaises()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -54,7 +54,7 @@ public class ContinenteController {
         ContinenteResponseDTO responseDTO = new ContinenteResponseDTO(
                 continente.getId(),
                 continente.getNombre(),
-                continente.getPaisesIds()
+                continente.getPaises()
         );
         return ResponseEntity.ok(responseDTO);
     }
@@ -66,7 +66,7 @@ public class ContinenteController {
         ContinenteResponseDTO responseDTO = new ContinenteResponseDTO(
                 continente.getId(),
                 continente.getNombre(),
-                continente.getPaisesIds()
+                continente.getPaises()
         );
         return ResponseEntity.ok(responseDTO);
     }
@@ -87,7 +87,7 @@ public class ContinenteController {
         ContinenteResponseDTO responseDTO = new ContinenteResponseDTO(
                 actualizado.getId(),
                 actualizado.getNombre(),
-                actualizado.getPaisesIds()
+                actualizado.getPaises()
         );
         return ResponseEntity.ok(responseDTO);
     }

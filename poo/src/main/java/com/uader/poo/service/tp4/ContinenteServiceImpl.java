@@ -2,19 +2,20 @@ package com.uader.poo.service.tp4;
 
 import com.uader.poo.entity.tp4.Continente;
 import com.uader.poo.entity.tp4.Pais;
+import com.uader.poo.exception.ResourceNotFoundException;
+import com.uader.poo.exception.InvalidInputException;
 import com.uader.poo.repository.tp4.ContinenteRepository;
 import com.uader.poo.repository.tp4.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ContinenteServiceImpl implements IContinenteService {
 
     private final ContinenteRepository continenteRepository;
-    private final PaisRepository paisRepository; // Necesitamos el repo de Pais para buscar por nombre
+    private final PaisRepository paisRepository;
 
     @Autowired
     public ContinenteServiceImpl(ContinenteRepository continenteRepository, PaisRepository paisRepository) {
@@ -23,9 +24,9 @@ public class ContinenteServiceImpl implements IContinenteService {
     }
 
     @Override
-    public Continente crearContinente(Continente continente) {
+    public Continente crearContinente(Continente continente) throws Exception {
         if (continente == null || continente.getNombre() == null || continente.getNombre().isBlank()) {
-            throw new IllegalArgumentException("El nombre del continente no puede estar vacío.");
+            throw new InvalidInputException("El nombre del continente no puede estar vacío.");
         }
         if (continenteRepository.existsByNombreIgnoreCase(continente.getNombre())) {
             throw new IllegalStateException("Ya existe un continente con el nombre '" + continente.getNombre() + "'.");
@@ -34,19 +35,19 @@ public class ContinenteServiceImpl implements IContinenteService {
     }
 
     @Override
-    public Continente obtenerContinentePorId(String id) {
+    public Continente obtenerContinentePorId(String id) throws Exception {
         return continenteRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró un continente con el ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un continente con el ID: " + id));
     }
 
     @Override
-    public Continente obtenerContinentePorNombre(String nombre) {
+    public Continente obtenerContinentePorNombre(String nombre) throws Exception {
         if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
+            throw new InvalidInputException("El nombre no puede ser nulo o vacío.");
         }
         Continente continente = continenteRepository.findByNombreIgnoreCase(nombre);
         if (continente == null) {
-            throw new IllegalArgumentException("No se encontró un continente con el nombre: " + nombre);
+            throw new ResourceNotFoundException("No se encontró un continente con el nombre: " + nombre);
         }
         return continente;
     }
@@ -57,50 +58,40 @@ public class ContinenteServiceImpl implements IContinenteService {
     }
 
     @Override
-    public void eliminarContinente(String id) {
+    public void eliminarContinente(String id) throws Exception {
         if (!continenteRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se puede eliminar: No existe un continente con ID: " + id);
+            throw new ResourceNotFoundException("No se puede eliminar: No existe un continente con ID: " + id);
         }
-        // TODO: Lógica adicional para eliminar un continente:
-        // Por ejemplo, aquí podrías validar si el continente tiene países asociados.
-        // Si tiene países, podrías decidir si quieres eliminar los países también,
-        // o lanzar una excepción para evitar que se elimine un continente con datos asociados.
         continenteRepository.deleteById(id);
     }
 
     @Override
-    public Continente agregarPaisAContinente(String nombreContinente, String nombrePais) {
+    public Continente agregarPaisAContinente(String nombreContinente, String nombrePais) throws Exception {
         if (nombreContinente == null || nombreContinente.isBlank() ||
-            nombrePais == null || nombrePais.isBlank()) {
-            throw new IllegalArgumentException("Nombre del continente o país no puede ser vacío.");
+                nombrePais == null || nombrePais.isBlank()) {
+            throw new InvalidInputException("Nombre del continente o país no puede ser vacío.");
         }
 
         Continente continente = continenteRepository.findByNombreIgnoreCase(nombreContinente);
         if (continente == null) {
-            throw new IllegalArgumentException("No se encontró el continente con nombre: " + nombreContinente);
+            throw new ResourceNotFoundException("No se encontró el continente con nombre: " + nombreContinente);
         }
 
-        // Buscamos el país por su nombre para obtener su ID
         Pais pais = paisRepository.findByNombreIgnoreCase(nombrePais);
         if (pais == null) {
-            throw new IllegalArgumentException("No se encontró el país con nombre: " + nombrePais);
+            throw new ResourceNotFoundException("No se encontró el país con nombre: " + nombrePais);
         }
 
         String paisId = pais.getId();
 
-        // Validación para evitar duplicados en el Set de IDs
-        if (continente.getPaisesIds().contains(paisId)) {
+        if (continente.getPaises().contains(paisId)) {
             throw new IllegalStateException("El país ya pertenece a este continente.");
         }
 
-        // Agregamos el ID del país al continente
-        continente.agregarPaisId(paisId);
-        
-        // También actualizamos el objeto país para que sepa a qué continente pertenece
+        continente.agregarPais(paisId);
         pais.setContinenteId(continente.getId());
-        paisRepository.save(pais); // Guardamos el cambio en el país
+        paisRepository.save(pais);
 
-        // Finalmente, guardamos el continente actualizado en la base de datos
         return continenteRepository.save(continente);
     }
 }

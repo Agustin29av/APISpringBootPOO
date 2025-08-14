@@ -1,16 +1,22 @@
 package com.uader.poo.dto.tp4;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class PaisCreateDTO {
 
     @NotBlank(message = "El nombre del país no puede estar vacío.")
+    @Size(min = 3, max = 50, message = "El nombre del país debe tener entre 3 y 50 caracteres")
     private String nombre;
     private String capital;
+    @Min(value = 0, message = "La superficie no puede ser negativa")
     private double superficie;
+    @NotBlank(message = "El ID del continente no puede estar vacío")
     private String continenteId;
 
-    // Getters y Setters
+    public PaisCreateDTO() {}
+
     public String getNombre() {
         return nombre;
     }

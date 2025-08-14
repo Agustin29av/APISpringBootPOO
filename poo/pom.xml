@@ -1,12 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> 
     </parent>
+
     <groupId>com.uader</groupId>
     <artifactId>poo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -14,29 +18,29 @@
     <description>POO UADER 2025</description>
 
     <properties>
-        <java.version>24</java.version>
+        <java.version>21</java.version>
     </properties>
 
     <dependencies>
-        <!-- Dependencia para Spring Data MongoDB -->
+        <!-- Spring Data MongoDB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
-        <!-- Dependencia para crear APIs REST -->
+        <!-- Spring Web (APIs REST) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Dependencia para la validación de DTOs -->
+        <!-- Validación con @Valid -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- Herramientas de desarrollo de Spring Boot -->
+        <!-- Herramientas de desarrollo -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -44,18 +48,25 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Lombok para simplificar el código (Getters, Setters, etc.) -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- Dependencia para pruebas de la aplicación -->
+        <!-- Pruebas -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Dotenv para leer variables de entorno desde .env -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 
@@ -75,4 +86,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

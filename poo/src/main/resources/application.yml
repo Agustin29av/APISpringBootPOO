@@ -5,8 +5,8 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb+srv://adriantournour:epfDtL7TnzdAaPbr@poo2025.qms4uoq.mongodb.net/?retryWrites=true&w=majority&appName=POO2025
-      database: POO2025
+          uri: mongodb+srv://agusaviles26:${MONGO_DB_PASSWORD}@clusterapirestpoo.l7cqtpk.mongodb.net/?retryWrites=true&w=majority&appName=ClusterAPIRESTPOO
+          database: ClusterAPIRESTPOO
   messages:
     basename: messages
     encoding: UTF-8

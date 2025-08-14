@@ -10,7 +10,10 @@ public interface ProvinciaRepository extends MongoRepository<Provincia, String> 
     boolean existsByNombreIgnoreCase(String nombre);
     Provincia findByNombreIgnoreCase(String nombre);
     List<Provincia> findByPaisId(String paisId);
-    List<Provincia> findBySuperficieGreaterThan(double superficie);
-    // NUEVO: Método para validar la unicidad de la provincia dentro de un país
+    
+    // NOTA: Se eliminó el método findBySuperficieGreaterThan ya que el campo 'superficie'
+    // no existe en la entidad Provincia.
+    // List<Provincia> findBySuperficieGreaterThan(double superficie);
+    
     Provincia findByNombreIgnoreCaseAndPaisId(String nombre, String paisId);
 }

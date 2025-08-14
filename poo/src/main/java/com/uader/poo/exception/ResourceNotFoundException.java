@@ -1,14 +1,17 @@
 package com.uader.poo.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+// Esta clase extiende tu GenericException
+public class ResourceNotFoundException extends GenericException {
 
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends Exception{
+    // El serialVersionUID es importante para la serialización de la clase
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-
-	public ResourceNotFoundException(String message){
-    	super(message);
+    // Usamos el constructor de la clase padre (GenericException)
+    // para pasarle el enum de error y un mensaje
+    public ResourceNotFoundException(String message) {
+        // En tu ErrorEnum.java, el más cercano a "no encontrado" es el 1002 (dato sin valor ingresado),
+        // aunque lo ideal sería tener un enum específico para este caso.
+        // Podríamos crear uno nuevo si quieres, por ahora usaremos este como ejemplo.
+        super(ErrorEnum.DATO_SIN_VALOR_INGRESADO);
     }
 }

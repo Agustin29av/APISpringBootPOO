@@ -1,7 +1,12 @@
 package com.uader.poo.entity.tp4;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,64 +16,56 @@ public class Continente {
 
     @Id
     private String id;
-    private String nombre;
-    private Set<String> paisesIds = new HashSet<>(); // Referencia a los IDs de los países
 
-    public Continente() {}
+    @NotBlank(message = "El nombre del continente no puede estar vacío")
+    @Size(min = 3, max = 50, message = "El nombre del continente debe tener entre 3 y 50 caracteres")
+    @Field("nombre")
+    private String nombre;
+
+    @Field("paises")
+    private Set<String> paises = new HashSet<>(); // IDs de los países
+
+    // CORRECCIÓN: Se cambió el constructor a public para que sea visible desde el controlador
+    public Continente() { }
 
     public Continente(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
+    // Getters y setters
+    public String getId() { return id; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public Set<String> getPaises() {
+        return Collections.unmodifiableSet(paises);
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Set<String> getPaisesIds() {
-        return paisesIds;
-    }
-
-    public void setPaisesIds(Set<String> paisesIds) {
-        this.paisesIds = paisesIds;
-    }
-
-    public void agregarPaisId(String paisId) {
-        if (this.paisesIds == null) {
-            this.paisesIds = new HashSet<>();
+    public void agregarPais(String paisId) {
+        if (paisId != null && !paisId.isBlank()) {
+            paises.add(paisId);
         }
-        this.paisesIds.add(paisId);
+    }
+
+    public void eliminarPais(String paisId) {
+        paises.remove(paisId);
     }
 
     @Override
-    public String toString() {
-        return "Continente{" +
-               "id='" + id + '\'' +
-               ", nombre='" + nombre + '\'' +
-               ", paisesIds=" + paisesIds +
-               '}';
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Continente c = (Continente) obj;
-        return nombre.equalsIgnoreCase(c.nombre);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Continente)) return false;
+        Continente that = (Continente) o;
+        return nombre != null && nombre.equalsIgnoreCase(that.nombre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre.toLowerCase());
+        return Objects.hash(nombre != null ? nombre.toLowerCase() : null);
+    }
+
+    @Override
+    public String toString() {
+        return "Continente{id='" + id + "', nombre='" + nombre + "', paises=" + paises + '}';
     }
 }

@@ -1,33 +1,70 @@
-HELP.md
-target/
+# Directorios y archivos de compilación
+# ------------------------------------
+# Ignora el directorio de compilación principal de Maven
+/target/
+# Ignora el directorio de compilación de Gradle o de otros sistemas
+/build/
+
+# Excepciones: Permite que el wrapper de Maven se incluya
 !.mvn/wrapper/maven-wrapper.jar
+
+# Directorios de compilación dentro de módulos (si los hubiera)
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
+# IDEs y Herramientas de Desarrollo
+# --------------------------------
+# Ignora archivos y directorios de IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# Ignora archivos de Spring Tool Suite (STS) / Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# Ignora archivos de Visual Studio Code
+.vscode/
+
+# Ignora archivos de NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# Archivos de sistema y SO
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# Archivos sensibles y de configuración local
+# ------------------------------------------
+# Ignora el archivo de variables de entorno
+.env
+*.env
+# Ignora archivos de configuración de Spring específicos para entornos locales
+src/main/resources/application.properties
+src/main/resources/application-local.yml
+src/main/resources/application-dev.yml
+
+# Archivos generados
+# ------------------
+# Ignora paquetes de la aplicación
+*.jar
+*.war
+*.ear
+
+# Ignora archivos de log
+*.log
+
+# Ignora archivos de bases de datos locales
+h2.db

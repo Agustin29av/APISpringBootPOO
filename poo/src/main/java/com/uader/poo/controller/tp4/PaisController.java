@@ -43,8 +43,8 @@ public class PaisController {
                 nuevoPais.getCapital(),
                 nuevoPais.getSuperficie(),
                 nuevoPais.getContinenteId(),
-                nuevoPais.getProvinciasIds(),
-                nuevoPais.getLimitrofesIds()
+                nuevoPais.getProvincias(),
+                nuevoPais.getLimitrofes()
         );
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
@@ -59,8 +59,8 @@ public class PaisController {
                 pais.getCapital(),
                 pais.getSuperficie(),
                 pais.getContinenteId(),
-                pais.getProvinciasIds(),
-                pais.getLimitrofesIds()
+                pais.getProvincias(),
+                pais.getLimitrofes()
         );
         return ResponseEntity.ok(responseDTO);
     }
@@ -75,8 +75,8 @@ public class PaisController {
                 pais.getCapital(),
                 pais.getSuperficie(),
                 pais.getContinenteId(),
-                pais.getProvinciasIds(),
-                pais.getLimitrofesIds()
+                pais.getProvincias(),
+                pais.getLimitrofes()
         );
         return ResponseEntity.ok(responseDTO);
     }
@@ -92,14 +92,14 @@ public class PaisController {
                         p.getCapital(),
                         p.getSuperficie(),
                         p.getContinenteId(),
-                        p.getProvinciasIds(),
-                        p.getLimitrofesIds()
+                        p.getProvincias(),
+                        p.getLimitrofes()
                 ))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
 
-    // Eliminar país (sin cambios)
+    // Eliminar país
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarPais(@PathVariable String id) throws Exception {
         paisService.eliminarPais(id);
@@ -117,8 +117,8 @@ public class PaisController {
                         p.getCapital(),
                         p.getSuperficie(),
                         p.getContinenteId(),
-                        p.getProvinciasIds(),
-                        p.getLimitrofesIds()
+                        p.getProvincias(),
+                        p.getLimitrofes()
                 ))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
