@@ -37,7 +37,7 @@ cd APISpringBootPOO
 ```bash
 cd poo
 ```
-> ⚠️ **IMPORTANTE**: El proyecto tiene una estructura anidada. Los comandos Maven deben ejecutarse desde `APISpringBootPOO/poo/`
+> ⚠️ **IMPORTANTE**: El proyecto tiene una estructura anidada. Los comandos Maven deben ejecutarse desde `APISpringBootPOO/poo/poo`
 
 ### 3. 🔐 Configurar MongoDB Atlas
 Editar el archivo `src/main/resources/application.properties`:
@@ -87,7 +87,7 @@ http://localhost:9001/poo
 | `DELETE` | `/api/continentes/{id}` | Eliminar continente |
 | `POST` | `/api/continentes/{nombre}/agregar-pais` | Agregar país a continente |
 
-### 📝 Ejemplos de Uso
+### 📝 Ejemplos de Uso en Postman o Similares
 
 #### Crear un Continente
 ```bash
@@ -222,7 +222,7 @@ application-local.properties
 ## 👨‍💻 Autor
 
 **Agustín** - Estudiante de Programación Orientada a Objetos  
-📧 Contacto: [Tu email aquí]  
+📧 Contacto: agusaviles26@gmail.com  
 🎓 Universidad: UADER
 
 ## 📄 Licencia
