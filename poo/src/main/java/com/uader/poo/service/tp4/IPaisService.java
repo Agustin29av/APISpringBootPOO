@@ -18,7 +18,6 @@ public interface IPaisService {
 
     List<Pais> obtenerPaisesPorContinenteId(String continenteId);
 
-    // Nuevos métodos agregados a la interfaz
     Pais agregarProvinciaAPais(String nombrePais, String nombreProvincia) throws Exception;
 
     Pais agregarLimitrofeAPais(String nombrePais, String nombreLimitrofe) throws Exception;

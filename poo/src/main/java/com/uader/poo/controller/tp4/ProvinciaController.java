@@ -24,7 +24,7 @@ public class ProvinciaController {
         this.provinciaService = provinciaService;
     }
 
-    // Crear provincia (ahora recibe un DTO y usa @Valid)
+    // Crear provincia (Recibe un DTO y usa @Valid)
     @PostMapping
     public ResponseEntity<ProvinciaResponseDTO> crearProvincia(@Valid @RequestBody ProvinciaCreateDTO provinciaCreateDTO) throws Exception {
         // Mapear de DTO a entidad
@@ -40,7 +40,7 @@ public class ProvinciaController {
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-    // Obtener por ID (ahora devuelve un DTO)
+    // Obtener por ID (Devuelve un DTO)
     @GetMapping("/{id}")
     public ResponseEntity<ProvinciaResponseDTO> obtenerProvinciaPorId(@PathVariable String id) throws Exception {
         Provincia provincia = provinciaService.obtenerProvinciaPorId(id);
@@ -52,7 +52,7 @@ public class ProvinciaController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    // Obtener por nombre (ahora devuelve un DTO)
+    // Obtener por nombre (Devuelve un DTO)
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<ProvinciaResponseDTO> obtenerProvinciaPorNombre(@PathVariable String nombre) throws Exception {
         Provincia provincia = provinciaService.obtenerProvinciaPorNombre(nombre);
@@ -64,7 +64,7 @@ public class ProvinciaController {
         return ResponseEntity.ok(responseDTO);
     }
     
-    // Obtener todas las provincias (ahora devuelve una lista de DTOs)
+    // Obtener todas las provincias (Devuelve una lista de DTOs)
     @GetMapping
     public ResponseEntity<List<ProvinciaResponseDTO>> obtenerTodasLasProvincias() {
         List<Provincia> provincias = provinciaService.obtenerTodasLasProvincias();
@@ -81,7 +81,7 @@ public class ProvinciaController {
         return ResponseEntity.noContent().build();
     }
 
-    // Obtener provincias por ID de país (ahora devuelve una lista de DTOs)
+    // Obtener provincias por ID de país (Devuelve una lista de DTOs)
     @GetMapping("/pais/{paisId}")
     public ResponseEntity<List<ProvinciaResponseDTO>> obtenerProvinciasPorPaisId(@PathVariable String paisId) {
         List<Provincia> provincias = provinciaService.obtenerProvinciasPorPaisId(paisId);

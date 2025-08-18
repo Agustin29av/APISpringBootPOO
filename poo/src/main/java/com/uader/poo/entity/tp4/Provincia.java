@@ -23,7 +23,8 @@ public class Provincia {
     @Field("pais_id")
     private String paisId;
 
-    // CORRECCIÓN: Se cambió el constructor a public para que sea visible
+    // acordarse que el constructor vacio por defecto es necesario para que el framework pueda crear instancias de esta clase
+
     public Provincia() { }
 
     public Provincia(String nombre, String paisId) {

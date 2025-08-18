@@ -38,13 +38,13 @@ public class PaisServiceImpl implements IPaisService {
             throw new IllegalStateException("Ya existe un país con el nombre '" + pais.getNombre() + "'.");
         }
         
-        // Obtener el continente antes de guardar el país para asegurarnos de que existe
+        // Primero veo si existe el continente para meter el pais
         Continente continente = continenteRepository.findById(pais.getContinenteId())
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el continente con el ID: " + pais.getContinenteId()));
 
         Pais nuevoPais = paisRepository.save(pais);
 
-        // Se agrega el ID del nuevo país al continente y se guarda el continente
+        // agrego la id del pais al continente y lo guardo
         continente.agregarPais(nuevoPais.getId());
         continenteRepository.save(continente);
 
@@ -84,7 +84,7 @@ public class PaisServiceImpl implements IPaisService {
             provinciaRepository.deleteAllById(pais.getProvincias());
         }
 
-        // Eliminar el país del continente al que pertenece
+        // Eliminar el país del continente al que pertenece, osea elimino argentina de america por ej
         Continente continente = continenteRepository.findById(pais.getContinenteId())
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el continente con el ID: " + pais.getContinenteId()));
         continente.eliminarPais(id);

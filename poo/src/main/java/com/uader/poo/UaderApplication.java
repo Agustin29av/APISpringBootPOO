@@ -18,8 +18,3 @@ public class UaderApplication {
         SpringApplication.run(UaderApplication.class, args);
     }
 }
-
-// Explicación en gaucho argentino:
-// Antes de encender la fábrica, vamos al cuaderno secreto (.env) y leemos las claves.
-// Con esas llaves abrimos todos los candados (MongoDB, puertos, etc).
-// Después sí, metemos la llave en la cerradura y arrancamos la máquina.

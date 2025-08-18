@@ -31,14 +31,13 @@ public class ProvinciaServiceImpl implements IProvinciaService {
         if (provinciaRepository.existsByNombreIgnoreCase(provincia.getNombre())) {
             throw new IllegalStateException("Ya existe una provincia con el nombre '" + provincia.getNombre() + "'.");
         }
-        
-        // Obtener el país antes de guardar la provincia para asegurarnos de que existe
+        // lo mismo que en continente, primero veo si existe el pais para meter la provincia
         Pais pais = paisRepository.findById(provincia.getPaisId())
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el país con el ID: " + provincia.getPaisId()));
 
         Provincia nuevaProvincia = provinciaRepository.save(provincia);
 
-        // Se agrega el ID de la nueva provincia al país y se guarda el país
+ 
         pais.agregarProvincia(nuevaProvincia.getId());
         paisRepository.save(pais);
 
@@ -73,7 +72,7 @@ public class ProvinciaServiceImpl implements IProvinciaService {
         Provincia provincia = provinciaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se puede eliminar: No existe una provincia con ID: " + id));
 
-        // Eliminar la referencia de la provincia en el país al que pertenece
+        // primero elimino la referencia de la provincia en el país al que pertenece
         Pais pais = paisRepository.findById(provincia.getPaisId())
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró el país con el ID: " + provincia.getPaisId()));
         pais.eliminarProvincia(id);

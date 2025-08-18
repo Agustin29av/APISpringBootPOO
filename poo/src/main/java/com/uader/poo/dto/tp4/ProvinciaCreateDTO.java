@@ -1,7 +1,7 @@
 package com.uader.poo.dto.tp4;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 
 public class ProvinciaCreateDTO {
 

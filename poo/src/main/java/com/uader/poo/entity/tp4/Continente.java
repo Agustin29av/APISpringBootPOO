@@ -25,17 +25,23 @@ public class Continente {
     @Field("paises")
     private Set<String> paises = new HashSet<>(); // IDs de los países
 
-    // CORRECCIÓN: Se cambió el constructor a public para que sea visible desde el controlador
-    public Continente() { }
+    // Antes tenia private el constructor pero lo cambie a public para que sea visible desde el controlador
+    public Continente() { } 
 
     public Continente(String nombre) {
         this.nombre = nombre;
     }
 
     // Getters y setters
-    public String getId() { return id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getId() {
+        return id; 
+    }
+    public String getNombre() {
+        return nombre; 
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public Set<String> getPaises() {
         return Collections.unmodifiableSet(paises);

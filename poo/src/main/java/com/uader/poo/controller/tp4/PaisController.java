@@ -24,7 +24,7 @@ public class PaisController {
         this.paisService = paisService;
     }
 
-    // Crear país (ahora recibe un DTO y usa @Valid)
+    // Crear país (Recibe un DTO y usa @Valid)
     @PostMapping
     public ResponseEntity<PaisResponseDTO> crearPais(@Valid @RequestBody PaisCreateDTO paisCreateDTO) throws Exception {
         // Mapear de DTO a entidad
@@ -49,7 +49,7 @@ public class PaisController {
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-    // Obtener país por ID (ahora devuelve un DTO)
+    // Obtener país por ID (Devuelve un DTO)
     @GetMapping("/{id}")
     public ResponseEntity<PaisResponseDTO> obtenerPaisPorId(@PathVariable String id) throws Exception {
         Pais pais = paisService.obtenerPaisPorId(id);
@@ -65,7 +65,7 @@ public class PaisController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    // Obtener país por nombre (ahora devuelve un DTO)
+    // Obtener país por nombre (Devuelve un DTO)
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<PaisResponseDTO> obtenerPaisPorNombre(@PathVariable String nombre) throws Exception {
         Pais pais = paisService.obtenerPaisPorNombre(nombre);
@@ -81,7 +81,7 @@ public class PaisController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    // Obtener todos los países (ahora devuelve una lista de DTOs)
+    // Obtener todos los países (Devuelve una lista de DTOs)
     @GetMapping
     public ResponseEntity<List<PaisResponseDTO>> obtenerTodosLosPaises() {
         List<Pais> paises = paisService.obtenerTodosLosPaises();
